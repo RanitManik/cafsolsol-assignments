@@ -2,6 +2,24 @@
 
 A Spring Boot application implementing two core functionalities: configuration file parsing and time-based pricing management with TSV file support.
 
+<details>
+<summary><strong>Table of Contents</strong></summary>
+
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Project Structure](#project-structure)
+- [Getting Started](#getting-started)
+- [API Endpoints](#api-endpoints)
+  - [Configuration API](#configuration-api)
+  - [Pricing API](#pricing-api)
+- [File Formats](#file-formats)
+  - [Configuration File Format](#configuration-file-format)
+  - [TSV File Format](#tsv-file-format)
+- [Test Coverage](#test-coverage)
+- [Author](#author)
+
+</details>
+
 ## Features
 
 ### Assignment 1: Configuration Parser
@@ -221,7 +239,9 @@ Response:
 }
 ```
 
-## Configuration File Format
+## File Formats
+
+### Configuration File Format
 
 ```
 SectionName
