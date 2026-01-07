@@ -1,14 +1,13 @@
 package com.ranitmanik.cafsolsol.service;
 
 import com.ranitmanik.cafsolsol.model.PricingRecord;
-import org.springframework.stereotype.Service;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.time.LocalTime;
 import java.util.*;
+import org.springframework.stereotype.Service;
 
 @Service
 public class PricingService {
@@ -48,7 +47,7 @@ public class PricingService {
 
         List<PricingRecord> records = pricingData.get(skuId);
         Double lastMatchingPrice = null;
-        
+
         for (PricingRecord record : records) {
             if (record.isTimeInRange(time)) {
                 lastMatchingPrice = record.getPrice();

@@ -1,17 +1,16 @@
 package com.ranitmanik.cafsolsol.controller;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import com.ranitmanik.cafsolsol.model.ConfigSection;
 import com.ranitmanik.cafsolsol.service.ConfigParser;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.DisplayName;
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
 @DisplayName("Config Controller Tests")
 class ConfigControllerTest {
@@ -24,21 +23,22 @@ class ConfigControllerTest {
         configParser = new ConfigParser();
         testConfigFile = File.createTempFile("test_config", ".txt");
         testConfigFile.deleteOnExit();
-        
+
         // Create test config
-        String configContent = "Gateway\n" +
-                "endpoint = https://xyz.in\n" +
-                "certurl = https://cloud.internalportal.com\n" +
-                "download loc =  /home/user/temp\n" +
-                "\n" +
-                "CXO\n" +
-                "endpont = http://internal.cxo.com\n" +
-                "broker = http://cxobroker.in\n" +
-                "topic = test_cxo_topic, test_cxo_topic_1\n" +
-                "\n" +
-                "Order Service\n" +
-                "broker = https://orbroker.in\n" +
-                "topic = test_os_topic_1, test_os_topic_2";
+        String configContent =
+                "Gateway\n"
+                        + "endpoint = https://xyz.in\n"
+                        + "certurl = https://cloud.internalportal.com\n"
+                        + "download loc =  /home/user/temp\n"
+                        + "\n"
+                        + "CXO\n"
+                        + "endpont = http://internal.cxo.com\n"
+                        + "broker = http://cxobroker.in\n"
+                        + "topic = test_cxo_topic, test_cxo_topic_1\n"
+                        + "\n"
+                        + "Order Service\n"
+                        + "broker = https://orbroker.in\n"
+                        + "topic = test_os_topic_1, test_os_topic_2";
 
         writeConfigToFile(configContent);
         configParser.parseConfigFile(testConfigFile.getAbsolutePath());
@@ -92,4 +92,3 @@ class ConfigControllerTest {
         }
     }
 }
-

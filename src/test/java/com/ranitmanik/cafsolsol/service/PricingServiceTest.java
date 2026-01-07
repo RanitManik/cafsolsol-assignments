@@ -1,17 +1,16 @@
 package com.ranitmanik.cafsolsol.service;
 
-import com.ranitmanik.cafsolsol.model.PricingRecord;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.DisplayName;
+import static org.junit.jupiter.api.Assertions.*;
 
+import com.ranitmanik.cafsolsol.model.PricingRecord;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Map;
-
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
 @DisplayName("PricingService Tests")
 class PricingServiceTest {
@@ -27,9 +26,10 @@ class PricingServiceTest {
     @DisplayName("Should load TSV data correctly")
     void testLoadTSVData() throws IOException {
         // Arrange
-        String tsvData = "SkuID\tStartTime\tEndTime\tPrice\n" +
-                "u00006541\t10:00\t10:15\t101\n" +
-                "i00006111\t10:02\t10:05\t100";
+        String tsvData =
+                "SkuID\tStartTime\tEndTime\tPrice\n"
+                        + "u00006541\t10:00\t10:15\t101\n"
+                        + "i00006111\t10:02\t10:05\t100";
 
         ByteArrayInputStream inputStream = new ByteArrayInputStream(tsvData.getBytes());
 
@@ -45,8 +45,7 @@ class PricingServiceTest {
     @DisplayName("Should return correct price when time is within range")
     void testGetPriceForSkuAtTimeInRange() throws IOException {
         // Arrange
-        String tsvData = "SkuID\tStartTime\tEndTime\tPrice\n" +
-                "u00006541\t10:00\t10:15\t101";
+        String tsvData = "SkuID\tStartTime\tEndTime\tPrice\n" + "u00006541\t10:00\t10:15\t101";
 
         ByteArrayInputStream inputStream = new ByteArrayInputStream(tsvData.getBytes());
         pricingService.loadPricingDataFromTSV(inputStream);
@@ -63,8 +62,7 @@ class PricingServiceTest {
     @DisplayName("Should return NOT SET when time is before range")
     void testGetPriceForSkuAtTimeBeforeRange() throws IOException {
         // Arrange
-        String tsvData = "SkuID\tStartTime\tEndTime\tPrice\n" +
-                "u00006541\t10:00\t10:15\t101";
+        String tsvData = "SkuID\tStartTime\tEndTime\tPrice\n" + "u00006541\t10:00\t10:15\t101";
 
         ByteArrayInputStream inputStream = new ByteArrayInputStream(tsvData.getBytes());
         pricingService.loadPricingDataFromTSV(inputStream);
@@ -80,8 +78,7 @@ class PricingServiceTest {
     @DisplayName("Should return NOT SET when time is after range")
     void testGetPriceForSkuAtTimeAfterRange() throws IOException {
         // Arrange
-        String tsvData = "SkuID\tStartTime\tEndTime\tPrice\n" +
-                "u00006541\t10:00\t10:15\t101";
+        String tsvData = "SkuID\tStartTime\tEndTime\tPrice\n" + "u00006541\t10:00\t10:15\t101";
 
         ByteArrayInputStream inputStream = new ByteArrayInputStream(tsvData.getBytes());
         pricingService.loadPricingDataFromTSV(inputStream);
@@ -97,9 +94,10 @@ class PricingServiceTest {
     @DisplayName("Should handle multiple price ranges for same SKU")
     void testGetPriceForSkuWithMultipleRanges() throws IOException {
         // Arrange
-        String tsvData = "SkuID\tStartTime\tEndTime\tPrice\n" +
-                "u00006541\t10:00\t10:15\t101\n" +
-                "u00006541\t10:05\t10:10\t99";
+        String tsvData =
+                "SkuID\tStartTime\tEndTime\tPrice\n"
+                        + "u00006541\t10:00\t10:15\t101\n"
+                        + "u00006541\t10:05\t10:10\t99";
 
         ByteArrayInputStream inputStream = new ByteArrayInputStream(tsvData.getBytes());
         pricingService.loadPricingDataFromTSV(inputStream);
@@ -116,8 +114,7 @@ class PricingServiceTest {
     @DisplayName("Should return null for non-existent SKU")
     void testGetPriceForNonExistentSku() throws IOException {
         // Arrange
-        String tsvData = "SkuID\tStartTime\tEndTime\tPrice\n" +
-                "u00006541\t10:00\t10:15\t101";
+        String tsvData = "SkuID\tStartTime\tEndTime\tPrice\n" + "u00006541\t10:00\t10:15\t101";
 
         ByteArrayInputStream inputStream = new ByteArrayInputStream(tsvData.getBytes());
         pricingService.loadPricingDataFromTSV(inputStream);
@@ -133,8 +130,7 @@ class PricingServiceTest {
     @DisplayName("Should return first price when no time specified")
     void testGetPriceForSkuWithoutTime() throws IOException {
         // Arrange
-        String tsvData = "SkuID\tStartTime\tEndTime\tPrice\n" +
-                "u00006541\t10:00\t10:15\t101";
+        String tsvData = "SkuID\tStartTime\tEndTime\tPrice\n" + "u00006541\t10:00\t10:15\t101";
 
         ByteArrayInputStream inputStream = new ByteArrayInputStream(tsvData.getBytes());
         pricingService.loadPricingDataFromTSV(inputStream);
@@ -151,9 +147,10 @@ class PricingServiceTest {
     @DisplayName("Should retrieve all pricing data")
     void testGetAllPricingData() throws IOException {
         // Arrange
-        String tsvData = "SkuID\tStartTime\tEndTime\tPrice\n" +
-                "u00006541\t10:00\t10:15\t101\n" +
-                "i00006111\t10:02\t10:05\t100";
+        String tsvData =
+                "SkuID\tStartTime\tEndTime\tPrice\n"
+                        + "u00006541\t10:00\t10:15\t101\n"
+                        + "i00006111\t10:02\t10:05\t100";
 
         ByteArrayInputStream inputStream = new ByteArrayInputStream(tsvData.getBytes());
         pricingService.loadPricingDataFromTSV(inputStream);
@@ -171,8 +168,7 @@ class PricingServiceTest {
     @DisplayName("Should verify SKU existence")
     void testSkuExists() throws IOException {
         // Arrange
-        String tsvData = "SkuID\tStartTime\tEndTime\tPrice\n" +
-                "u00006541\t10:00\t10:15\t101";
+        String tsvData = "SkuID\tStartTime\tEndTime\tPrice\n" + "u00006541\t10:00\t10:15\t101";
 
         ByteArrayInputStream inputStream = new ByteArrayInputStream(tsvData.getBytes());
         pricingService.loadPricingDataFromTSV(inputStream);
@@ -186,19 +182,20 @@ class PricingServiceTest {
     @DisplayName("Should handle start time inclusive and end time exclusive")
     void testTimeRangeBoundary() throws IOException {
         // Arrange
-        String tsvData = "SkuID\tStartTime\tEndTime\tPrice\n" +
-                "u00006541\t10:00\t10:15\t101";
+        String tsvData = "SkuID\tStartTime\tEndTime\tPrice\n" + "u00006541\t10:00\t10:15\t101";
 
         ByteArrayInputStream inputStream = new ByteArrayInputStream(tsvData.getBytes());
         pricingService.loadPricingDataFromTSV(inputStream);
 
         // Act & Assert
         // Start time should be included
-        Double priceAtStart = pricingService.getPriceForSkuAtTime("u00006541", LocalTime.parse("10:00"));
+        Double priceAtStart =
+                pricingService.getPriceForSkuAtTime("u00006541", LocalTime.parse("10:00"));
         assertEquals(101.0, priceAtStart);
 
         // End time should be excluded
-        Double priceAtEnd = pricingService.getPriceForSkuAtTime("u00006541", LocalTime.parse("10:15"));
+        Double priceAtEnd =
+                pricingService.getPriceForSkuAtTime("u00006541", LocalTime.parse("10:15"));
         assertNull(priceAtEnd);
     }
 }

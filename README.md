@@ -73,6 +73,12 @@ The application starts on `http://localhost:8080`
 ./gradlew test
 ```
 
+### Format Project
+
+```bash
+./gradlew spotlessApply
+```
+
 ## API Endpoints
 
 ### Configuration API

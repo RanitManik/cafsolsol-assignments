@@ -2,6 +2,9 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '4.0.1'
 	id 'io.spring.dependency-management' version '1.1.7'
+	id 'checkstyle'
+	id 'jacoco'
+	id 'com.diffplug.spotless' version '6.25.0'
 }
 
 group = 'com.ranitmanik'
@@ -24,4 +27,56 @@ dependencies {
 
 tasks.named('test') {
 	useJUnitPlatform()
+	finalizedBy jacocoTestReport
+}
+
+// Checkstyle Configuration
+checkstyle {
+	toolVersion = '10.12.5'
+	configFile = file("${rootDir}/config/checkstyle/checkstyle.xml")
+	ignoreFailures = false
+	maxWarnings = 0
+}
+
+// JaCoCo Configuration
+jacoco {
+	toolVersion = "0.8.11"
+}
+
+jacocoTestReport {
+	dependsOn test
+	reports {
+		xml.required = true
+		html.required = true
+		csv.required = false
+	}
+}
+
+jacocoTestCoverageVerification {
+	dependsOn jacocoTestReport
+	violationRules {
+		rule {
+			limit {
+				minimum = 0.70 // 70% coverage minimum
+			}
+		}
+		rule {
+			element = 'CLASS'
+			limit {
+				minimum = 0.60 // 60% per class
+			}
+		}
+	}
+}
+
+// Spotless Configuration
+spotless {
+	java {
+		target 'src/**/*.java'
+		googleJavaFormat('1.19.1').aosp().reflowLongStrings()
+		removeUnusedImports()
+		trimTrailingWhitespace()
+		endWithNewline()
+		formatAnnotations()
+	}
 }

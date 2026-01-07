@@ -1,18 +1,17 @@
 package com.ranitmanik.cafsolsol.service;
 
-import com.ranitmanik.cafsolsol.model.ConfigSection;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.DisplayName;
+import static org.junit.jupiter.api.Assertions.*;
 
+import com.ranitmanik.cafsolsol.model.ConfigSection;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
-
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
 @DisplayName("ConfigParser Tests")
 class ConfigParserTest {
@@ -32,20 +31,21 @@ class ConfigParserTest {
     @DisplayName("Should parse configuration file with sections and properties")
     void testParseConfigFile() throws IOException {
         // Arrange
-        String configContent = "Gateway\n" +
-                "endpoint = https://xyz.in\n" +
-                "certurl = https://cloud.internalportal.com\n" +
-                "download loc =  /home/user/temp\n" +
-                "\n" +
-                "CXO\n" +
-                "endpont = http://internal.cxo.com\n" +
-                "redirect url = \n" +
-                "broker = http://cxobroker.in\n" +
-                "topic = test_cxo_topic, test_cxo_topic_1\n" +
-                "\n" +
-                "Order Service\n" +
-                "broker = https://orbroker.in\n" +
-                "topic = test_os_topic_1, test_os_topic_2";
+        String configContent =
+                "Gateway\n"
+                        + "endpoint = https://xyz.in\n"
+                        + "certurl = https://cloud.internalportal.com\n"
+                        + "download loc =  /home/user/temp\n"
+                        + "\n"
+                        + "CXO\n"
+                        + "endpont = http://internal.cxo.com\n"
+                        + "redirect url = \n"
+                        + "broker = http://cxobroker.in\n"
+                        + "topic = test_cxo_topic, test_cxo_topic_1\n"
+                        + "\n"
+                        + "Order Service\n"
+                        + "broker = https://orbroker.in\n"
+                        + "topic = test_os_topic_1, test_os_topic_2";
 
         writeConfigToFile(configContent);
 
@@ -62,10 +62,11 @@ class ConfigParserTest {
     @DisplayName("Should retrieve Gateway section properties")
     void testGetGatewaySection() throws IOException {
         // Arrange
-        String configContent = "Gateway\n" +
-                "endpoint = https://xyz.in\n" +
-                "certurl = https://cloud.internalportal.com\n" +
-                "download loc =  /home/user/temp";
+        String configContent =
+                "Gateway\n"
+                        + "endpoint = https://xyz.in\n"
+                        + "certurl = https://cloud.internalportal.com\n"
+                        + "download loc =  /home/user/temp";
 
         writeConfigToFile(configContent);
         configParser.parseConfigFile(testConfigFile.getAbsolutePath());
@@ -84,9 +85,10 @@ class ConfigParserTest {
     @DisplayName("Should parse array properties with comma-separated values")
     void testParseArrayProperties() throws IOException {
         // Arrange
-        String configContent = "Order Service\n" +
-                "broker = https://orbroker.in\n" +
-                "topic = test_os_topic_1, test_os_topic_2";
+        String configContent =
+                "Order Service\n"
+                        + "broker = https://orbroker.in\n"
+                        + "topic = test_os_topic_1, test_os_topic_2";
 
         writeConfigToFile(configContent);
         configParser.parseConfigFile(testConfigFile.getAbsolutePath());
@@ -97,7 +99,7 @@ class ConfigParserTest {
         // Assert
         assertNotNull(section);
         assertEquals("https://orbroker.in", section.getProperties().get("broker"));
-        
+
         List<String> topics = section.getArrayProperties().get("topic");
         assertNotNull(topics);
         assertEquals(2, topics.size());
@@ -109,8 +111,7 @@ class ConfigParserTest {
     @DisplayName("Should return null for non-existent section")
     void testGetNonExistentSection() throws IOException {
         // Arrange
-        String configContent = "Gateway\n" +
-                "endpoint = https://xyz.in";
+        String configContent = "Gateway\n" + "endpoint = https://xyz.in";
 
         writeConfigToFile(configContent);
         configParser.parseConfigFile(testConfigFile.getAbsolutePath());
@@ -123,11 +124,12 @@ class ConfigParserTest {
     @DisplayName("Should retrieve all sections")
     void testGetAllSections() throws IOException {
         // Arrange
-        String configContent = "Gateway\n" +
-                "endpoint = https://xyz.in\n" +
-                "\n" +
-                "CXO\n" +
-                "broker = http://cxobroker.in";
+        String configContent =
+                "Gateway\n"
+                        + "endpoint = https://xyz.in\n"
+                        + "\n"
+                        + "CXO\n"
+                        + "broker = http://cxobroker.in";
 
         writeConfigToFile(configContent);
         configParser.parseConfigFile(testConfigFile.getAbsolutePath());
@@ -145,10 +147,11 @@ class ConfigParserTest {
     @DisplayName("Should handle CXO section with multiple topics")
     void testParseCXOSection() throws IOException {
         // Arrange
-        String configContent = "CXO\n" +
-                "endpont = http://internal.cxo.com\n" +
-                "broker = http://cxobroker.in\n" +
-                "topic = test_cxo_topic, test_cxo_topic_1";
+        String configContent =
+                "CXO\n"
+                        + "endpont = http://internal.cxo.com\n"
+                        + "broker = http://cxobroker.in\n"
+                        + "topic = test_cxo_topic, test_cxo_topic_1";
 
         writeConfigToFile(configContent);
         configParser.parseConfigFile(testConfigFile.getAbsolutePath());
@@ -160,7 +163,7 @@ class ConfigParserTest {
         assertNotNull(section);
         assertEquals("http://internal.cxo.com", section.getProperties().get("endpont"));
         assertEquals("http://cxobroker.in", section.getProperties().get("broker"));
-        
+
         List<String> topics = section.getArrayProperties().get("topic");
         assertNotNull(topics);
         assertEquals(2, topics.size());

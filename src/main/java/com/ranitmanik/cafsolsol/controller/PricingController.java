@@ -1,6 +1,10 @@
 package com.ranitmanik.cafsolsol.controller;
 
 import com.ranitmanik.cafsolsol.service.PricingService;
+import java.io.IOException;
+import java.time.LocalTime;
+import java.util.HashMap;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpStatus;
@@ -8,17 +12,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-import java.time.LocalTime;
-import java.util.HashMap;
-import java.util.Map;
-
 @RestController
 @RequestMapping("/api/pricing")
 public class PricingController {
 
-    @Autowired
-    private PricingService pricingService;
+    @Autowired private PricingService pricingService;
 
     private volatile boolean pricingDataLoaded = false;
 
@@ -54,7 +52,9 @@ public class PricingController {
 
         if (!pricingDataLoaded) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body("Pricing data not loaded. Please call /api/pricing/load-default or /api/pricing/upload first");
+                    .body(
+                            "Pricing data not loaded. Please call /api/pricing/load-default or"
+                                    + " /api/pricing/upload first");
         }
 
         if (!pricingService.skuExists(skuId)) {

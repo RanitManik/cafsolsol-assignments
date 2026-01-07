@@ -2,6 +2,9 @@ package com.ranitmanik.cafsolsol.controller;
 
 import com.ranitmanik.cafsolsol.model.ConfigSection;
 import com.ranitmanik.cafsolsol.service.ConfigParser;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpStatus;
@@ -12,16 +15,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-
 @RestController
 @RequestMapping("/api/config")
 public class ConfigController {
 
-    @Autowired
-    private ConfigParser configParser;
+    @Autowired private ConfigParser configParser;
 
     private volatile boolean configLoaded = false;
 

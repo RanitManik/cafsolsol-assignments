@@ -1,14 +1,12 @@
 package com.ranitmanik.cafsolsol.service;
 
 import com.ranitmanik.cafsolsol.model.ConfigSection;
-import org.springframework.stereotype.Service;
-
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
+import org.springframework.stereotype.Service;
 
 @Service
 public class ConfigParser {
@@ -23,7 +21,7 @@ public class ConfigParser {
 
             while ((line = reader.readLine()) != null) {
                 line = line.trim();
-                
+
                 // Skip empty lines
                 if (line.isEmpty()) {
                     continue;
@@ -42,9 +40,10 @@ public class ConfigParser {
 
                         // Check if value contains commas (array property)
                         if (value.contains(",")) {
-                            List<String> values = Arrays.stream(value.split(","))
-                                    .map(String::trim)
-                                    .collect(Collectors.toList());
+                            List<String> values =
+                                    Arrays.stream(value.split(","))
+                                            .map(String::trim)
+                                            .collect(Collectors.toList());
                             currentSection.addArrayProperty(key, values);
                         } else {
                             currentSection.addProperty(key, value);

@@ -1,15 +1,14 @@
 package com.ranitmanik.cafsolsol.controller;
 
-import com.ranitmanik.cafsolsol.service.PricingService;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.DisplayName;
+import static org.junit.jupiter.api.Assertions.*;
 
+import com.ranitmanik.cafsolsol.service.PricingService;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.time.LocalTime;
-
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
 @DisplayName("Pricing Controller Tests")
 class PricingControllerTest {
@@ -19,16 +18,17 @@ class PricingControllerTest {
     @BeforeEach
     void setUp() throws IOException {
         pricingService = new PricingService();
-        
+
         // Load sample pricing data
-        String tsvData = "SkuID\tStartTime\tEndTime\tPrice\n" +
-                "u00006541\t10:00\t10:15\t101\n" +
-                "i00006111\t10:02\t10:05\t100\n" +
-                "u09099000\t10:00\t10:08\t5000\n" +
-                "t12182868\t10:00\t20:00\t87\n" +
-                "b98989000\t00:30\t07:00\t9128\n" +
-                "u00006541\t10:05\t10:10\t99\n" +
-                "t12182868\t14:00\t15:00\t92";
+        String tsvData =
+                "SkuID\tStartTime\tEndTime\tPrice\n"
+                        + "u00006541\t10:00\t10:15\t101\n"
+                        + "i00006111\t10:02\t10:05\t100\n"
+                        + "u09099000\t10:00\t10:08\t5000\n"
+                        + "t12182868\t10:00\t20:00\t87\n"
+                        + "b98989000\t00:30\t07:00\t9128\n"
+                        + "u00006541\t10:05\t10:10\t99\n"
+                        + "t12182868\t14:00\t15:00\t92";
 
         ByteArrayInputStream inputStream = new ByteArrayInputStream(tsvData.getBytes());
         pricingService.loadPricingDataFromTSV(inputStream);
@@ -110,4 +110,3 @@ class PricingControllerTest {
         assertEquals(87.0, price);
     }
 }
-
