@@ -27,14 +27,8 @@ jobs:
     - name: Check code formatting
       run: ./gradlew spotlessCheck
       
-    - name: Run Checkstyle
-      run: ./gradlew checkstyleMain checkstyleTest
-      
     - name: Build with Gradle
       run: ./gradlew build
-      
-    - name: Run tests
-      run: ./gradlew test
       
     - name: Generate test coverage report
       run: ./gradlew jacocoTestReport
