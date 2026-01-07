@@ -272,7 +272,7 @@ Comprehensive unit tests following TDD approach:
 
 ## Author
 
-**Ranit Manik**
+**Ranit Kumar Manik**
 
 ---
 
